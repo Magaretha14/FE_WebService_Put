@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Web Service Consume</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        
+        <script>
+            function get(){
+                let view = document.getElementById("view");
+                //view.innerHTML = "I love Jisung";
+                $.ajax({
+                    url: 'http://localhost:8080/GET',
+                    dataType: 'text', 
+                    success: function (result) {
+                        view.innerHTML = result;
+                        //console.log(result);
+                    }
+                });
+            }
+            
+            function post(){
+                let view = document.getElementById("view");
+                let id = document.getElementById("id").value;
+                let name = document.getElementById("name").value;
+                let tglLahir = document.getElementById("tglLahir").value;
+                //let dataText = { id: id, name: name, tglLahir: tglLahir};
+                let json = {"id":id, "name":name, "tglLahir":tglLahir};
+                let obj = JSON.stringify(json);
+                //view.innerHTML = "I love Jisung";
+                $.ajax({
+                    url: 'http://localhost:8080/POST',
+                    data:obj, 
+                    method: 'POST',
+                    contentType: 'application/json',
+                    dataType: 'text', 
+                    success: function (result) {
+                        view.innerHTML = result;
+                    }
+                });
+            }
+            
+            function put(){
+                let id = document.getElementById("id").value;
+                let name = document.getElementById("name").value;
+                let tglLahir = document.getElementById("tglLahir").value;
+                let json = {"id":id, "name":name, "tglLahir":tglLahir};
+                let obj = JSON.stringify(json);
+                $.ajax({
+                    url: 'http://localhost:8080/PUT',
+                    data:obj, 
+                    method: 'PUT',
+                    contentType: 'application/json',
+                    dataType: 'text', 
+                    success: function (result) {
+                        view.innerHTML = result;
+                    }
+                });
+            }
+            
+            function del(){
+                let id = document.getElementById("id").value;
+                let json = {"id":id};
+                let obj = JSON.stringify(json);
+                $.ajax({
+                    url: 'http://localhost:8080/DELETE',
+                    data:obj, 
+                    method: 'DELETE',
+                    contentType: 'application/json',
+                    dataType: 'text', 
+                    success: function (result) {
+                        view.innerHTML = result;
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div>RESTful Consume</div>
+        <input type="text" id="id" name="id">
+        
+        <input type="text" id="name" name="name">
+        
+        <input type="date" id="tglLahir" name="tglLahir">
+        
+        <hr>
+        
+        <button onclick="get()">GET</button>
+        <button onclick="post()">POST</button><!-- comment -->
+        <button onclick="put()">PUT</button>
+        <button onclick="del()">DELETE</button>
+        <br><br><!-- comment -->
+        
+        <div id="view">
+    </body>
+</html>
